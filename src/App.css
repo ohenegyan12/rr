@@ -41,7 +41,7 @@
 }
 
 .navbar-light {
-  color: #111111;
+  color: #002153;
 }
 
 .logo {
@@ -136,8 +136,10 @@
     padding: 0 2rem 2.5rem;
   }
   .title {
-    font-size: 11vw;
+    font-size: 12vw;
     letter-spacing: -1px;
+    white-space: normal; /* Allow wrapping on tablets/mobile */
+    line-height: 1;
   }
 }
 
@@ -146,16 +148,18 @@
     padding: 1.5rem 1rem;
   }
   .logo {
-    font-size: 1.4rem;
+    font-size: 1.1rem; /* Slightly smaller for mobile */
   }
   .logo-icon {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
   .hero-content {
     padding: 0 1rem 2rem;
   }
   .title {
-    font-size: 11.5vw;
+    font-size: 14vw;
+    line-height: 1.1;
+    white-space: normal;
   }
   .subtitle {
     font-size: 1.1rem;
@@ -372,7 +376,7 @@
   line-height: 1.05;
   letter-spacing: -1px;
   margin-bottom: 2rem;
-  color: #111;
+  color: #002153; /* Deep Navy */
 }
 
 .about-title i {
@@ -410,7 +414,7 @@
 .about-image-mask {
   width: 85%;
   height: 85vh; /* Increase height */
-  align-self: flex-start; /* Touches left side, leaves space on right */
+  align-self: center; /* Center the image mask */
   overflow: hidden; /* Contains the parallax image from spilling out vertically */
 }
 
@@ -465,7 +469,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 3.5rem;
   font-weight: 400;
-  color: #111;
+  color: #002153; /* Deep Navy */
   margin-bottom: 2rem;
   line-height: 1.1;
   letter-spacing: -1px;
@@ -553,6 +557,7 @@
   line-height: 1;
   letter-spacing: -2px;
   margin-bottom: 8rem;
+  color: #002153; /* Deep Navy */
 }
 
 .section-header-centered i {
@@ -589,7 +594,7 @@
   font-family: 'Playfair Display', serif;
   font-size: 4rem;
   font-weight: 400;
-  color: #111;
+  color: #002153; /* Deep Navy */
   letter-spacing: -1px;
 }
 
@@ -815,7 +820,7 @@
   font-size: 4rem; 
   font-weight: 400;
   line-height: 1.1;
-  color: #111;
+  color: #002153; /* Deep Navy */
   margin-bottom: 2rem;
   letter-spacing: -1px;
 }
@@ -1161,7 +1166,7 @@
 /* Responsive */
 @media (max-width: 1100px) {
   .footer-links-grid {
-    grid-template-columns: 1fr 1fr;
+    flex-wrap: wrap;
     gap: 4rem;
   }
 }
@@ -1176,13 +1181,28 @@
 }
 
 @media (max-width: 600px) {
+  .footer {
+    padding: 4rem 1.5rem 2rem;
+  }
+  .footer-logo-text {
+    font-size: 2rem;
+  }
   .footer-links-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+    flex-direction: column;
+    gap: 3.5rem;
+    align-items: center;
+  }
+  .footer-link-list a, .footer-address {
+    font-size: 1.3rem;
   }
   .footer-bottom {
     flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
+    gap: 1.5rem;
+    align-items: center;
+    text-align: center;
+  }
+  .footer-legal-links {
+    gap: 1.5rem;
+    justify-content: center;
   }
 }
