@@ -96,10 +96,40 @@ function App() {
     return () => unsub();
   }, [x]);
 
+  // Dynamic Navbar Color Logic
+  const [isLightBackground, setIsLightBackground] = useState(false);
+  const philRef = useRef(null);
+  const purchaseRef = useRef(null);
+  const footerRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPos = window.scrollY + 50; // Offset for safety
+      
+      const heroHeight = window.innerHeight;
+      const philTop = philRef.current?.offsetTop || 0;
+      const philBottom = philTop + (philRef.current?.offsetHeight || 0);
+      const purchaseTop = purchaseRef.current?.offsetTop || 0;
+      const purchaseBottom = purchaseTop + (purchaseRef.current?.offsetHeight || 0);
+      const footerTop = footerRef.current?.offsetTop || 0;
+
+      // It's a "Dark" section if we are in Hero, Philosophy, Purchase, or Footer
+      const isDarkSection = 
+        scrollPos < heroHeight || 
+        (scrollPos >= philTop && scrollPos <= philBottom) ||
+        (scrollPos >= purchaseTop && scrollPos <= purchaseBottom) ||
+        (scrollPos >= footerTop);
+
+      setIsLightBackground(!isDarkSection);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <main className="app-main">
-      <motion.div className="hero-container" style={{ y: heroY }}>
-      <nav className="navbar">
+      <nav className={`navbar ${isLightBackground ? 'navbar-light' : ''}`}>
         <div className="logo">
           <span className="logo-icon">❉</span>
           <span className="logo-text">Bellovoire</span>
@@ -109,6 +139,8 @@ function App() {
           <div className="line short"></div>
         </div>
       </nav>
+
+      <motion.div className="hero-container" style={{ y: heroY }}>
       
       <div className="hero-content">
         <p className="subtitle">How Not To Retire poor</p>
@@ -269,7 +301,7 @@ function App() {
       </section>
 
       {/* PHILOSOPHY SECTION */}
-      <section className="philosophy-section">
+      <section className="philosophy-section" ref={philRef}>
         <div className="philosophy-bg-overlay"></div>
         <div className="philosophy-content">
           <div className="words-row">
@@ -372,7 +404,7 @@ function App() {
       </section>
 
       {/* PURCHASE SECTION */}
-      <section className="purchase-section">
+      <section className="purchase-section" ref={purchaseRef}>
         <div className="purchase-bg" style={{ backgroundImage: "url('/images/book-now.jpg')" }}></div>
         <motion.div 
           className="purchase-card"
@@ -392,6 +424,61 @@ function App() {
           <a href="#" className="purchase-btn">ORDER NOW</a>
         </motion.div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="footer" ref={footerRef}>
+        <div className="footer-top">
+          <div className="footer-brand-column">
+            <div className="footer-logo">
+              <span className="footer-logo-icon">❉</span>
+              <span className="footer-logo-text">Retiring Richly</span>
+            </div>
+          </div>
+          
+          <div className="footer-links-grid">
+            <div className="footer-col">
+              <h4 className="footer-label">Contact</h4>
+              <address className="footer-address">
+                128 Rue de Rivoli, 4th <br />
+                Arrondissement 75001 <br />
+                Paris, France
+              </address>
+              <div className="footer-contact-details">
+                <a href="mailto:info@retiringrichly.com" className="footer-sub-link">INFO @ RETIRING RICHLY</a>
+                <a href="tel:+011234567890" className="footer-sub-link">CONTACT / +01 1234567890</a>
+              </div>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-label">Sitemap</h4>
+              <ul className="footer-link-list">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about-author">About Author</a></li>
+                <li><a href="#about-book">About Book</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+              </ul>
+            </div>
+
+            <div className="footer-col">
+              <h4 className="footer-label">Socials</h4>
+              <ul className="footer-link-list">
+                <li><a href="#">Twitter</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Linkedin</a></li>
+                <li><a href="#">Facebook</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <p className="copyright">© 2026 All rights reserved.</p>
+          <div className="footer-legal-links">
+            <a href="#">TERMS & CONDITIONS</a>
+            <a href="#">PRIVACY POLICY</a>
+          </div>
+        </div>
+      </footer>
     </main>
   )
 }
