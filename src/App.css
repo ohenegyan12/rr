@@ -1,4 +1,5 @@
 .hero-container {
+  height: 100vh;
   min-height: 100vh;
   background-image: url('/images/hero-image.jpg');
   background-size: cover;
@@ -6,7 +7,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 /* Subtle gradient to ensure text readability against the image */
@@ -304,5 +307,457 @@
   }
   .menu-links a {
     font-size: 2.5rem;
+  }
+}
+
+/* ABOUT SECTION */
+.about-section {
+  background-color: #f1f0eb;
+  color: #111;
+  padding-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+  box-shadow: 0 -20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.about-content {
+  text-align: center;
+  max-width: 700px;
+  padding: 0 2rem;
+  margin-bottom: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.8rem;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin-bottom: 2rem;
+  color: #111;
+}
+
+.about-title i {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.about-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: #333;
+}
+
+.about-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid #111;
+  padding-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: opacity 0.3s ease;
+}
+
+.about-btn:hover {
+  opacity: 0.6;
+}
+
+.about-image-mask {
+  width: 85%;
+  height: 85vh; /* Increase height */
+  align-self: flex-start; /* Touches left side, leaves space on right */
+  overflow: hidden; /* Contains the parallax image from spilling out vertically */
+}
+
+.about-image {
+  width: 100%;
+  height: 125%; /* Taller than mask to have room precisely for parallax */
+  margin-top: -10%; /* Center the extra height */
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .about-title {
+    font-size: 3rem;
+  }
+}
+@media (max-width: 600px) {
+  .about-title {
+    font-size: 2.5rem;
+  }
+  .about-image-mask {
+    width: 95%; /* More space on mobile */
+  }
+}
+
+/* CATEGORIES SECTION */
+.categories-section {
+  background-color: #f1f0eb; /* Matches the top section for seamless flow */
+  padding: 8rem 4rem 10rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12rem;
+  position: relative;
+  z-index: 10;
+}
+
+.category-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch; /* Stretch columns to same height */
+  gap: 5rem;
+}
+
+.category-text-col {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+}
+
+.category-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: #111;
+  margin-bottom: 2rem;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.category-title i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.category-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 4rem;
+}
+
+.category-small-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  margin-top: auto; /* Pushes the small image to the bottom of the column */
+}
+
+.category-small-img, .category-big-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.category-big-img-wrap {
+  width: 60%;
+  aspect-ratio: 4 / 3; 
+  overflow: hidden;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .categories-section {
+    padding: 6rem 3rem 8rem;
+    gap: 8rem;
+  }
+  .category-row {
+    gap: 3rem;
+  }
+  .category-title {
+    font-size: 2.8rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .categories-section {
+    padding: 4rem 2rem 6rem;
+  }
+  .category-row {
+    flex-direction: column;
+  }
+  .category-text-col {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .category-big-img-wrap {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* OFFERS SECTION */
+.offers-section {
+  background-color: #f1f0eb;
+  padding: 10rem 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.section-header-centered {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -2px;
+  margin-bottom: 8rem;
+}
+
+.section-header-centered i {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.offers-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.offer-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr 1.5fr;
+  align-items: center;
+  gap: 3rem;
+  padding: 3.5rem 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.offer-item:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.offer-id {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
+}
+
+.offer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem;
+  font-weight: 400;
+  color: #111;
+  letter-spacing: -1px;
+}
+
+.offer-desc {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.offer-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.offer-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .offer-title {
+    font-size: 3rem;
+  }
+  .offer-item {
+    grid-template-columns: 50px 1fr 1.2fr 1.2fr;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .section-header-centered {
+    font-size: 3.5rem;
+    margin-bottom: 5rem;
+  }
+  .offer-item {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
+  }
+  .offer-id {
+    margin-bottom: -1rem;
+  }
+}
+
+/* AUTHOR CTA SECTION */
+.author-cta-section {
+  background-color: #f1f0eb;
+  padding: 10rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+.cta-container {
+  max-width: 900px;
+}
+
+.cta-text {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; /* Reduced font size as requested */
+  font-weight: 400;
+  line-height: 1.4;
+  color: #111;
+  margin-bottom: 3.5rem;
+  letter-spacing: -0.2px;
+}
+
+.cta-btn {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  border-bottom: 2px solid #111;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: opacity 0.3s ease;
+}
+
+.cta-btn:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+  .cta-text {
+    font-size: 2.2rem;
+  }
+}
+@media (max-width: 600px) {
+  .cta-text {
+    font-size: 1.8rem;
+  }
+}
+
+/* PHILOSOPHY SECTION */
+.philosophy-section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background-image: url('/images/more-than-a-book.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.philosophy-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45); /* Darker overlay as requested */
+  z-index: 1;
+}
+
+.philosophy-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  padding: 0 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center main content */
+  align-items: center;
+  color: #f8f8f8;
+}
+
+.words-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.word {
+  font-family: 'Playfair Display', serif;
+  font-size: 8.5vw;
+  font-weight: 400;
+  letter-spacing: -2px;
+}
+
+.word.center {
+  font-style: italic;
+  font-weight: 400;
+}
+
+.bottom-desc-wrap {
+  position: absolute; /* Pushes to absolute bottom of container */
+  bottom: 8vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.philosophy-desc {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  max-width: 900px;
+  line-height: 1.2;
+  font-weight: 400;
+  text-align: center;
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .philosophy-desc {
+    font-size: 1.6rem;
+    max-width: 600px;
+  }
+  .word {
+    font-size: 12vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .words-row {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 5vh;
+  }
+  .word {
+    font-size: 4rem;
+  }
+  .philosophy-desc {
+    font-size: 1.2rem;
   }
 }
