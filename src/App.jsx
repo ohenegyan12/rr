@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { useState, useRef, useEffect } from 'react'
+import { motion, useScroll, useTransform, useAnimation, useMotionValue } from 'framer-motion'
 import './App.css'
 
 function App() {
@@ -54,6 +54,47 @@ function App() {
       desc: "Unlock the secrets of passive income and high-yield growth in the digital age. Begin and end your financial journey with ease as our strategies provide priority paths to unshakeable independence."
     }
   ];
+
+  const galleryImages = [
+    "/images/gallery-1.jpg",
+    "/images/gallery-2.jpg",
+    "/images/gallery-3.jpg",
+    "/images/gallery-4.jpg",
+    "/images/gallery-5.jpg",
+    "/images/gallery-6.jpg"
+  ];
+  
+  // Triple the list to create a seamless infinite loop in both directions
+  const infiniteImages = [...galleryImages, ...galleryImages, ...galleryImages];
+
+  // Logic for Infinite Drag and Zoom
+  const x = useMotionValue(0);
+  const carouselRef = useRef(null);
+  
+  useEffect(() => {
+    if (carouselRef.current) {
+      // Start in the middle set for bidirectional infinite feel
+      const width = carouselRef.current.offsetWidth / 3;
+      x.set(-width); 
+    }
+  }, []);
+
+  // Listen for changes to handle manual drag overlap
+  useEffect(() => {
+    const unsub = x.onChange((latest) => {
+      if (!carouselRef.current) return;
+      const totalWidth = carouselRef.current.scrollWidth;
+      const setWidth = totalWidth / 3;
+      
+      // Invisible teleport loop
+      if (latest <= -setWidth * 2) {
+        x.set(latest + setWidth);
+      } else if (latest >= -setWidth * 0.5) { // Reset if we drag "too far" right
+        x.set(latest - setWidth);
+      }
+    });
+    return () => unsub();
+  }, [x]);
 
   return (
     <main className="app-main">
@@ -276,8 +317,84 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* GALLERY SECTION */}
+      <section className="gallery-section" id="gallery">
+        <div className="gallery-header">
+          <motion.h2 
+            className="gallery-title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Retiring Richly<br />
+            <i>in Pictures</i>
+          </motion.h2>
+          <motion.p 
+            className="gallery-desc"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Step inside the world of Retiring Richly through our gallery — where timeless 
+            financial wisdom, elegant details, and enchanting success stories come together 
+            to tell the story of your next unforgettable escape.
+          </motion.p>
+          <motion.a 
+            href="#gallery-full" 
+            className="gallery-btn"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.4 }}
+          >
+            VIEW GALLERY
+          </motion.a>
+        </div>
+        <div className="gallery-carousel-wrapper">
+          <motion.div 
+            ref={carouselRef}
+            className="gallery-carousel"
+            style={{ x }}
+            drag="x"
+            dragConstraints={{ left: -20000, right: 20000 }} 
+            whileTap={{ cursor: "grabbing" }}
+          >
+            {infiniteImages.map((src, idx) => (
+              <div className="gallery-item-wrap" key={idx}>
+                <img src={src} alt="Gallery" className="gallery-item-img" draggable="false" loading="eager" />
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* PURCHASE SECTION */}
+      <section className="purchase-section">
+        <div className="purchase-bg" style={{ backgroundImage: "url('/images/book-now.jpg')" }}></div>
+        <motion.div 
+          className="purchase-card"
+          initial={{ rotate: -8, y: 50, opacity: 0 }}
+          whileInView={{ rotate: 0, y: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="purchase-card-icon">❉</div>
+          <h2 className="purchase-card-title">Secure Your Copy</h2>
+          <p className="purchase-card-desc">
+            Acquiring "Retiring Richly" means more than just reading a book — 
+            it's about tailoring every financial detail to suit your vision. 
+            Whether you'd like to include curated strategies or keep things minimal, 
+            you have full control over your future experience.
+          </p>
+          <a href="#" className="purchase-btn">ORDER NOW</a>
+        </motion.div>
+      </section>
     </main>
   )
 }
+
 
 export default App
