@@ -36,6 +36,10 @@
   transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.nav-disabled {
+  pointer-events: none !important;
+}
+
 .navbar-light {
   color: #111111;
 }
@@ -48,6 +52,8 @@
   font-size: 1.8rem;
   font-weight: 400;
   letter-spacing: -0.5px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .logo-icon {
@@ -64,6 +70,12 @@
   gap: 8px;
   cursor: pointer;
   padding: 0.5rem;
+  transition: opacity 0.3s ease;
+}
+
+.burger-menu.hidden {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .line {
@@ -159,7 +171,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 90;
+  z-index: 1500; /* Higher than navbar */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.4s ease, visibility 0.4s ease;
@@ -180,7 +192,7 @@
   max-width: 600px;
   height: 100vh;
   background-color: #f0eee9; /* light beige matching image */
-  z-index: 100;
+  z-index: 2000; /* Highest priority */
   transition: right 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   display: flex;
   flex-direction: column;
@@ -194,14 +206,25 @@
 
 .side-nav-close {
   position: absolute;
-  top: 2.5rem;
-  right: 4rem;
-  width: 30px;
-  height: 30px;
+  top: 2rem; /* Adjusted slightly */
+  right: 3.5rem; /* Adjusted slightly */
+  width: 60px; /* Even larger hit area */
+  height: 60px; 
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 2500; 
+  background-color: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  pointer-events: auto;
+  transition: opacity 0.3s ease;
+}
+
+.side-nav-close:hover {
+  opacity: 0.6;
 }
 
 .close-line {

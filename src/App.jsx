@@ -129,12 +129,12 @@ function App() {
 
   return (
     <main className="app-main">
-      <nav className={`navbar ${isLightBackground ? 'navbar-light' : ''}`}>
-        <div className="logo">
+      <nav className={`navbar ${isLightBackground ? 'navbar-light' : ''} ${isMenuOpen ? 'nav-disabled' : ''}`}>
+        <a href="/" className="logo">
           <span className="logo-icon">❉</span>
-          <span className="logo-text">Bellovoire</span>
-        </div>
-        <div className="burger-menu" onClick={toggleMenu}>
+          <span className="logo-text">Retiring Richly</span>
+        </a>
+        <div className={`burger-menu ${isMenuOpen ? 'hidden' : ''}`} onClick={toggleMenu}>
           <div className="line long"></div>
           <div className="line short"></div>
         </div>
@@ -155,10 +155,14 @@ function App() {
 
       {/* SIDE NAV */}
       <div className={`side-nav ${isMenuOpen ? 'open' : ''}`}>
-        <div className="side-nav-close" onClick={toggleMenu}>
+        <button 
+          className="side-nav-close" 
+          onClick={() => setIsMenuOpen(false)}
+          aria-label="Close menu"
+        >
           <div className="close-line left"></div>
           <div className="close-line right"></div>
-        </div>
+        </button>
         
         <div className="side-nav-content">
           <div className="menu-section">
